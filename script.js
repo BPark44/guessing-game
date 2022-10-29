@@ -1,24 +1,17 @@
 'use strict';
 
-// document.querySelector('.message').textContent = 'Correct!';
-
-// document.querySelector('.number').textContent = '69';
-// document.querySelector('.score').textContent = '69';
-
-// document.querySelector('.guess').value;
-
 let number = Math.trunc(Math.random()*20+1);
 let score = 20
 let highScore = 0;
 
-// document.querySelector('.number').textContent = number;
-
 document.querySelector('.check').addEventListener('click', function() {
     const guess = Number(document.querySelector('.guess').value);
-    // console.log(typeof guess);
 
+    // When guess is left blank
     if (!guess) {
         document.querySelector('.message').textContent = '⛔ No number!';
+
+    // When guess is correct
     } else if (guess === number) {
         document.querySelector('.message').textContent = '✅ Correct!';
         document.querySelector('body').style.backgroundColor = '#60b347';
@@ -28,23 +21,17 @@ document.querySelector('.check').addEventListener('click', function() {
             highScore = score;
             document.querySelector('.highscore').textContent = score;
         }
-    } else if (guess > number) {
+
+        // When guess is wrong
+    } else if (guess !== number) {
         if (score > 0) {
-            document.querySelector('.message').textContent = '📉 Lower...';
+            document.querySelector('.message').textContent = guess > number ? '📉 Lower...' : '📈 Higher...';
             score--;
             document.querySelector('.score').textContent = score;
-        } else if (score === 0) {
+        } else {
             document.querySelector('.message').textContent = '❌ GAME OVER ❌';
         }
-    } else if (guess < number) {
-        if (score > 0) {
-            document.querySelector('.message').textContent = '📈 Higher...';
-            score--;
-            document.querySelector('.score').textContent = score;
-        } else if (score === 0) {
-            document.querySelector('.message').textContent = '❌ GAME OVER ❌';
-        }
-    }
+    } 
 });
 
 document.querySelector('.again').addEventListener('click', function() {
